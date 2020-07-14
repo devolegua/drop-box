@@ -7,10 +7,12 @@ function DbxAuth() {
   const [isAuthedSectionShown, showAuthedSection] = useState(false);
   const [isPreAuthSectionShown, showPreAuthSection] = useState(false);
   const [entries, setEntries] = useState<any[] | null>(null);
+  const [authUrl, setAuthUrl] = useState<string | null>(null);
   const onInit = createOnInit({
     showAuthedSection,
     showPreAuthSection,
-    setEntries
+    setEntries,
+    setAuthUrl
   });
 
   useEffect(onInit, []);
@@ -46,10 +48,21 @@ function DbxAuth() {
 
           <ul id="files">
             {entries && entries.map(entr => (
-              <li>{ entr.name }</li>
+              <li key={entr.name}>{ entr.name }</li>
             ))}
           </ul>
         </div>
+      </div>
+      <div>
+        {authUrl && (
+          <iframe
+            src={authUrl}
+            frameBorder="0"
+          >
+            This is iframe
+          </iframe>
+        )}
+
       </div>
     </div>
   )
@@ -63,7 +76,7 @@ function createOnInit(opts: any) {
 
       // Create an instance of Dropbox with the access token and use it to
       // fetch and render the files in the users root directory.
-      const accessToken = getAccessTokenFromUrl();
+      const accessToken = getAccessTokenFromUrl() || localStorage.accessToken;
       localStorage.accessToken = accessToken;
       const dbx = new Dropbox({ accessToken });
 
@@ -84,7 +97,8 @@ function createOnInit(opts: any) {
       // Set the login anchors href using dbx.getAuthenticationUrl()
       const dbx = new Dropbox({ clientId: CLIENT_ID });
       const authUrl = dbx.getAuthenticationUrl('http://localhost:3100');
-      (document.getElementById('authlink') as HTMLAnchorElement).href = authUrl;
+      opts.setAuthUrl(authUrl);
+      // (document.getElementById('authlink') as HTMLAnchorElement).href = authUrl;
     }
   }
 }

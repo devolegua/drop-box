@@ -8,6 +8,7 @@ function DbxAuth() {
   const [isPreAuthSectionShown, showPreAuthSection] = useState(false);
   const [entries, setEntries] = useState<any[] | null>(null);
   const [authUrl, setAuthUrl] = useState<string | null>(null);
+
   const onInit = createOnInit({
     showAuthedSection,
     showPreAuthSection,
@@ -53,19 +54,24 @@ function DbxAuth() {
           </ul>
         </div>
       </div>
-      <div>
-        {authUrl && (
-          <iframe
-            src={authUrl}
-            frameBorder="0"
-          >
-            This is iframe
-          </iframe>
-        )}
-
-      </div>
+      {/*<DbxIframeAuth url={authUrl} />*/}
     </div>
   )
+}
+
+function DbxIframeAuth(props: any) {
+  return (
+    <div>
+      {props.url && (
+        <iframe
+          src={props.url}
+          frameBorder="0"
+        >
+          This is iframe
+        </iframe>
+      )}
+    </div>
+  );
 }
 
 

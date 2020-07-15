@@ -54,7 +54,7 @@ function DbxAuth() {
           </ul>
         </div>
       </div>
-      {/*<DbxIframeAuth url={authUrl} />*/}
+      <DbxIframeAuth url={authUrl} />
     </div>
   )
 }
@@ -104,7 +104,10 @@ function createOnInit(opts: any) {
       const dbx = new Dropbox({ clientId: CLIENT_ID });
       const authUrl = dbx.getAuthenticationUrl('http://localhost:3100');
       opts.setAuthUrl(authUrl);
-      // (document.getElementById('authlink') as HTMLAnchorElement).href = authUrl;
+      (document.getElementById('authlink') as HTMLAnchorElement).href = authUrl;
+      // const newWindow = window.open(authUrl, '_blank', 'menubar,location,resizable,scrollbars,status,noopener');
+      // console.log(newWindow);
+      // fetch(authUrl);
     }
   }
 }

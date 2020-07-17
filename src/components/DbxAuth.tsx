@@ -54,7 +54,7 @@ function DbxAuth() {
           </ul>
         </div>
       </div>
-      <DbxIframeAuth url={authUrl} />
+      {/*<DbxIframeAuth url={authUrl} />*/}
     </div>
   )
 }

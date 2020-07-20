@@ -105,8 +105,14 @@ function createOnInit(opts: any) {
       const authUrl = dbx.getAuthenticationUrl('http://localhost:3100');
       opts.setAuthUrl(authUrl);
       (document.getElementById('authlink') as HTMLAnchorElement).href = authUrl;
-      // const newWindow = window.open(authUrl, '_blank', 'menubar,location,resizable,scrollbars,status,noopener');
-      // console.log(newWindow);
+
+      const newWindow = window.open(
+        authUrl,
+        '_blank',
+        // 'menubar,resizable,scrollbars,status,width=600,height=600',
+      );
+      console.log(newWindow);
+
       // fetch(authUrl);
     }
   }
